@@ -1,4 +1,4 @@
-#include ../_Library/AHKLibrary/CommonAHKLibrary.ahk
+#include ../_Library/AHKLibrary/Common/CommonAHKLibrary.ahk
 #include ./GC_Common.ahk
 
 
@@ -15,6 +15,31 @@ F16::
 F19::
 { ; NEO Scavenger charge laptop bettery on Last Stop tile
 	NS_LaptopBattery()
+}
+F20::
+{
+	x := 0
+	y := 0
+	MouseGetPos(&x, &y)
+	loop
+	{
+		send "e"
+		sleep 200
+		Click(900, 345)
+		sleep 200
+		Click(974, 525)
+		sleep 200
+		MouseMove(x, y)
+		WaitForKey("LButton")
+		MouseGetPos(&x, &y)
+		sleep 200
+		Click(979, 627)
+		sleep 200
+		Click(922, 317)
+		Send("{f down}")
+		sleep 1500
+		Send("{f up}")
+	}
 }
 F21::
 { ; Discord Whiteboard drawing (run F22 load pallet first)
@@ -139,29 +164,4 @@ F22::
     Send "{Shift down}{Alt down}{F12 down}"
     KeyWait "``"
     Send "{Shift up}{Alt up}{F12 up}"
-}
-F20::
-{
-	x := 0
-	y := 0
-	MouseGetPos(&x, &y)
-	loop
-	{
-		send "e"
-		sleep 200
-		Click(900, 345)
-		sleep 200
-		Click(974, 525)
-		sleep 200
-		MouseMove(x, y)
-		WaitForKey("LButton")
-		MouseGetPos(&x, &y)
-		sleep 200
-		Click(979, 627)
-		sleep 200
-		Click(922, 317)
-		Send("{f down}")
-		sleep 1500
-		Send("{f up}")
-	}
 }

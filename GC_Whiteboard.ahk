@@ -5,13 +5,16 @@ WB_LoadPallet()
 	WaitForLoad(4991, 975, 0x18191C) ; hover until menu with pencil appears
 	click(4977, 1003) ; click pencil
 	WaitForLoad(4912, 930, 0x18191C) ; wait until taller color select menu is open
-	
 	loop 6
 	{
 		click 4637, 997 ; click color select
 		WaitForLoad(4612, 667, 0x18191C) ; wait for color selection box to open
-		click 4692, 872 ; click color text
-		send "^a" ; select color text
+
+		; double click to select color text
+		click 4698, 869
+		sleep 200
+		click 4698, 869
+		
 		switch(A_Index)
 		{
 			case 1:
@@ -44,12 +47,18 @@ WB_DrawImage()
 ; mouse pointer in upper left of source image
 ; Whiteboard fullscreen on far right monitor
 
-	imageX := 490 ; X size of source image
-	imageY := 340 ; Y size of source image
-	dotSize := 2 ; number of pixels wide each dot is 
+
+	dotSize := InputBox("number of pixels wide each dot is (default 2)", "dot size", , "2").Value ; number of pixels wide each dot is 
 	sensitivity := 0x70 ; threshold for detecting RGB color present in source pixel
 
+	MsgBox("Click upper left then lower right of source image")
+	WaitForKey("LButton")
 	MouseGetPos(&sourceX, &sourceY)
+	WaitForKey("LButton")
+	MouseGetPos(&endX, &endY)
+	imageX := endX - sourceX ; X size of source image
+	imageY := endY - sourceY ; Y size of source image
+	
 	MouseMove(4780, 948) ; hover and wait for brush size option
 	WaitForLoad(4912, 930, 0x18191C) ; wait for color selection box to open to select brush size
 	click 4680 + dotSize * 50, 948 ; select correct brush size. for dot size 2: (4780, 948) 4: (4832, 950) 5: (4895, 949)
